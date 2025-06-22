@@ -2,7 +2,7 @@ import streamlit as st
 from openai import OpenAI
 
 # Page config: adds favicon, title bar name, and layout
-st.set_page_config(page_title="Chat Khan 🤖", page_icon="💬", layout="centered")
+st.set_page_config(page_title="Mr. Chat Khan 🤖", page_icon="💬", layout="centered")
 
 # Custom CSS styling
 st.markdown("""
@@ -44,11 +44,13 @@ if "openai_model" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+    # Add the system message only ONCE when the session starts
     st.session_state.messages.append({"role": "system", "content": "You are a highly intelligent and helpful AI assistant specializing in software development. You can provide detailed explanations, solve complex problems, and write complete, functional code in various languages and frameworks, including Python, Streamlit, Next.js, and database interactions. Always strive for clear, efficient, and well-commented code. If asked for code, provide the full, runnable script."})
 
 
+# Show past messages (excluding system messages)
 for message in st.session_state.messages:
-    if message["role"] != "system": 
+    if message["role"] != "system":
         with st.chat_message(message["role"]):
             display_role = "You" if message["role"] == "user" else "Assistant"
             st.markdown(f"**{display_role}**: {message['content']}")
@@ -56,6 +58,7 @@ for message in st.session_state.messages:
 
 # Chat input
 if prompt := st.chat_input("Type your message here..."):
+    # Add user message to session state
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     # Display user message immediately
@@ -64,21 +67,24 @@ if prompt := st.chat_input("Type your message here..."):
 
     # Get assistant response
     with st.chat_message("assistant"):
+        # Create a placeholder for the assistant's streaming response
+        message_placeholder = st.empty() 
+
         with st.spinner("Typing..."):
             stream = client.chat.completions.create(
                 model=st.session_state["openai_model"],
                 messages=[
                     {"role": m["role"], "content": m["content"]}
-                    for m in st.session_state.messages # All messages are sent to API
+                    for m in st.session_state.messages
                 ],
                 stream=True,
             )
             full_response = ""
-
             for chunk in stream:
                 full_response += (chunk.choices[0].delta.content or "")
-                st.markdown(full_response + "▌") # Blinking cursor while typing
-            st.markdown(full_response) # Final response
+                # Update the placeholder with the accumulating response
+                message_placeholder.markdown(full_response + "▌") 
+            message_placeholder.markdown(full_response)
 
     # Add assistant response to session state
     st.session_state.messages.append({"role": "assistant", "content": full_response})
