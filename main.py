@@ -33,7 +33,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title with emoji
-st.title("💬 Ali's Chat Bot")
+st.title("💬 Mr. Chat Khan")
 
 # OpenAI client
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
