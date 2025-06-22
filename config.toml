@@ -1,0 +1,16 @@
+[theme]
+# Primary accent color for interactive elements
+primaryColor = "#4CAF50" # A nice green
+# Background color for the main content area
+backgroundColor = "#FFFFFF" # White for light mode
+# Background color for sidebar and secondary components
+secondaryBackgroundColor = "#F0F2F6" # Light grey
+# Color used for almost all text
+textColor = "#262730" # Dark grey/black
+
+# Font family for the app
+font = "sans serif" # Or "serif", "monospace"
+
+# For dark mode (Streamlit automatically adjusts these based on user's browser/OS preference)
+# You don't explicitly set dark mode colors here; Streamlit handles the inverse
+# based on the light mode settings and its internal logic.
