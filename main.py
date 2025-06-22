@@ -2,7 +2,7 @@ import streamlit as st
 from openai import OpenAI
 
 # Page config: adds favicon, title bar name, and layout
-st.set_page_config(page_title="Ali's Chat Bot 🤖", page_icon="💬", layout="centered")
+st.set_page_config(page_title="Chat Khan 🤖", page_icon="💬", layout="centered")
 
 # Custom CSS styling
 st.markdown("""
