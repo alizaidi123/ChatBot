@@ -40,11 +40,11 @@ client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # Session state setup
 if "openai_model" not in stl.session_state:
-    stl.session_state["openai_model"] = "gpt-4o-mini"
+    st.session_state["openai_model"] = "gpt-4o-mini"
 
 if "messages" not in stl.session_state:
-    stl.session_state.messages = []
-    stl.session_state.messages.append({"role": "system", "content": "You are a highly intelligent and helpful AI assistant specializing in software development. You can provide detailed explanations, solve complex problems, and write complete, functional code in various languages and frameworks, including Python, Streamlit, Next.js, and database interactions. Always strive for clear, efficient, and well-commented code. If asked for code, provide the full, runnable script."})
+    st.session_state.messages = []
+    st.session_state.messages.append({"role": "system", "content": "You are a highly intelligent and helpful AI assistant specializing in software development. You can provide detailed explanations, solve complex problems, and write complete, functional code in various languages and frameworks, including Python, Streamlit, Next.js, and database interactions. Always strive for clear, efficient, and well-commented code. If asked for code, provide the full, runnable script."})
 
 
 # Show past messages
